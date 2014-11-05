@@ -71,9 +71,9 @@ a.remove {position: absolute; top: 10px; right: 10px; cursor: pointer; color: re
 
 
 /* izCMS classes */
-.error {font-weight: bold;color: #C00; text-align: center;}
-.success {font-weight: bold;color: green; text-align: center;}
-.warning {font-size: 11px; color: #c00; text-align: center;}
+.error {font-weight: bold;color: #C00;}
+.success {font-weight: bold;color: green;}
+.warning {font-size: 11px; color: #c00;}
 .required {color: #c00;}
 .selected {font-weight: bold;}
 .avatar { width: 60px; height: 60px;float: left;margin: 0 25px 0px 0px; border:1px solid #c1c1c1; padding: 3px; background-color: white;}
