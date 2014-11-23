@@ -1,31 +1,30 @@
+<?php include('../include/mysqli_connect.php') ?>
+<?php include('../include/functions.php') ?>
 <?php include('../include/header.php') ?>
 <?php include('../include/sitebar-admin.php') ?>
 <?php include('../include/sitebar-b.php') ?>
-<?php include('../include/mysqli_connect.php') ?>
+
 <?php 
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         
-        // array container field which validate fields
-        $error = array();
-        
+        $cat_name = mysqli_real_escape_string($dbc,filter_input(INPUT_POST, 'category', FILTER_SANITIZE_SPECIAL_CHARS));
+        $position = filter_input(INPUT_POST, 'position', FILTER_SANITIZE_SPECIAL_CHARS);
+
         // validate cat_name
-        if (empty($_POST['category'])) {
+        if (empty($cat_name)) {
             $message = "<p class='warning'>Category name is required!</p>";
-        } else {
-            $cat_name = $_POST['category'];
-        }
-        
+        } 
+
         // validate position
-        if (isset($_POST['position'])  && filter_var($_POST['position'], FILTER_VALIDATE_INT, array('min-range' => 1))) {
-            $position = $_POST['position'];
-        } else {
-            $message = "<p class='warning'>Position is required!</p>";
+        if (!filter_var($position, FILTER_VALIDATE_INT, array('min-range' => 1))) {
+           $message = "<p class='warning'>Position is required!</p>";
         }
         
         if (!isset($message) || empty($message)) { // Check is has any error message
             
             $q = "INSERT INTO categories (user_id, cat_name, position) VALUES (1, '{$cat_name}', {$position})";
-            $r = mysqli_query($dbc, $q) or die("Query: {$q} \n<br/> MySQL error: " . mysqli_error($dbc));
+            $r = mysqli_query($dbc, $q);
+            confirm_query($r, $q);
             
             if (mysqli_affected_rows($dbc) == 1) {
                 $message = "<p class='success'>The category was added successfully.</p>";
@@ -54,7 +53,8 @@
                 <select name="position" tabindex="2">
                     <?php 
                         $q = "SELECT count(cat_id) AS count FROM categories";
-                        $r = mysqli_query($dbc, $q) or die("Query: \n <br/> MYSQL_ERROR: " . mysqli_error($dbc));
+                        $r = mysqli_query($dbc, $q);
+                        confirm_query($r, $q);
                         if (mysqli_num_rows($r) == 1) {
                             list($num) = mysqli_fetch_array($r, MYSQLI_NUM);
                             for ($i = 1; $i<=$num + 1; $i++) {

@@ -1,6 +1,9 @@
+<?php include('include/mysqli_connect.php') ?>
+<?php include('include/functions.php') ?>
 <?php include('include/header.php') ?>
 <?php include('include/sitebar-a.php') ?>
 <?php include('include/sitebar-b.php') ?>
+
 <div id="content">
 
     <h2>Welcome To izCMS</h2>

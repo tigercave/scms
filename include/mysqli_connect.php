@@ -1,6 +1,6 @@
 <?php 
 	// Connect to database
-	$dbc = mysqli_connect('localhost', 'root', '', 'scms');
+	$dbc = mysqli_connect('localhost', 'root', 'thanhlong', 'scms');
 
 	// If connect error then throw error message to browser.
 	if (!$dbc) {
