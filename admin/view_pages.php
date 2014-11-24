@@ -2,9 +2,9 @@
 <?php include('../include/functions.php') ?>
 <?php include('../include/header.php') ?>
 <?php include('../include/sitebar-admin.php') ?>
-<?php include('../include/sitebar-b.php') ?>
+
 <div id="content">
-	<h2>Manage categories</h2>
+	<h2>Manage pages</h2>
 	<table>
 		<thead>
 			<tr>

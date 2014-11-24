@@ -2,8 +2,6 @@
 <?php include('../include/functions.php') ?>
 <?php include('../include/header.php') ?>
 <?php include('../include/sitebar-admin.php') ?>
-<?php include('../include/sitebar-b.php') ?>
-
 <?php 
     //get all field from request
     if (filter_input(INPUT_SERVER, 'REQUEST_METHOD') == 'POST') {
@@ -14,7 +12,7 @@
         $page_name = mysqli_real_escape_string($dbc, filter_input(INPUT_POST, 'page_name', FILTER_SANITIZE_SPECIAL_CHARS));
         $categoryId = filter_input(INPUT_POST, 'categoryId', FILTER_SANITIZE_SPECIAL_CHARS);
         $position = filter_input(INPUT_POST, 'position', FILTER_SANITIZE_SPECIAL_CHARS);
-        $page_content = filter_input(INPUT_POST, 'page_content');
+        $page_content = filter_input(INPUT_POST, 'page_content',FILTER_SANITIZE_SPECIAL_CHARS);
 
         // validate page_name
         if (empty($page_name)) {
@@ -33,7 +31,7 @@
 
         // validate page_content
         if (empty($page_content)) {
-            //$errors = "<p class='warning'>Page content is required!</p>";  
+            $errors = "<p class='warning'>Page content is required!</p>";  
         } 
 
         // Add page to db
@@ -110,7 +108,9 @@
 
             <div>
                 <label for="page_content">Content: <span class="required">*</span></label>
-                <textarea id="page_content" name="page_content" cols="50" rows="6"></textarea>
+                <textarea id="page_content" name="page_content" cols="50" rows="6">
+                	<?php if (isset($page_content)) echo htmlentities($page_content, ENT_COMPAT, 'UTF-8')?>
+                </textarea>
             </div>
 
         </fieldset>

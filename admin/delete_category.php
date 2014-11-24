@@ -2,7 +2,6 @@
 <?php include('../include/functions.php') ?>
 <?php include('../include/header.php') ?>
 <?php include('../include/sitebar-admin.php') ?>
-<?php include('../include/sitebar-b.php') ?>
 <?php 
 	
 	$catId = filter_input(INPUT_GET, 'cid', FILTER_VALIDATE_INT, array('min_ranger'=>1));
