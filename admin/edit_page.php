@@ -3,12 +3,32 @@
 <?php include('../include/header.php') ?>
 <?php include('../include/sitebar-admin.php') ?>
 
-<?php 
+<?php
+	// options for FILTER_VALIDATE_INT
+	$options = array('options' => array('min_range' => 1));
 	//get all field from request
-	$page_id = filter_input(INPUT_GET, 'pid', FILTER_VALIDATE_INT, array('options' => array('min_range' => 1)));
+	$page_id = filter_input(INPUT_GET, 'pid', FILTER_VALIDATE_INT, $options);
 
-	
+	if (empty($page_id)) { // validate $page_id
+		redirect_to('admin/admin.php');
+	}
 
+	// Load page entity
+	$q = "SELECT page_name, cat_id, position, content FROM pages WHERE page_id = {$page_id}";
+	$r = mysqli_query($dbc, $q);
+	confirm_query($r,$q);
+
+	if (mysqli_num_rows($r) == 1) {
+		$page = mysqli_fetch_array($r, MYSQLI_NUM);
+		// Load field
+		$page_name = $page[0];
+		$categoryId = $page[1];
+		$position = $page[2];
+		$page_content = $page[3];
+
+	} else {
+		redirect_to('admin/admin.php');
+	}
 
 	if (filter_input(INPUT_SERVER, 'REQUEST_METHOD') == 'POST') {
 		// error array
@@ -26,12 +46,12 @@
 		}
 
 		// validate category 
-		if (!filter_var($categoryId, FILTER_VALIDATE_INT, array('min_range' => 1))) {
+		if (!filter_var($categoryId, FILTER_VALIDATE_INT, $options)) {
 			$errors = "categoryId";
 		}
 
 		// position category 
-		if (!filter_var($position, FILTER_VALIDATE_INT, array('min_range' => 1))) {
+		if (!filter_var($position, FILTER_VALIDATE_INT, $options)) {
 			$errors = "position";
 		}
 
@@ -45,7 +65,7 @@
 
 			$q = "UPDATE pages SET ";
 				$q .= "page_name = '{$page_name}', ";
-				$q .= "cat_id = {$cat_id}, ";
+				$q .= "cat_id = {$categoryId}, ";
 				$q .= "position = {$position}, ";
 				$q .= "content = '{$page_content}' ";
 			$q .= "WHERE page_id = {$page_id} LIMIT 1";
@@ -118,9 +138,7 @@
 				<label for="page_content">Content: <span class="required">*</span>
 					<?php if (isset($errors) && in_array('page_content', $errors)) echo "<p class='warning'>Please fill in content.</p>";?>
 				</label>
-				<textarea id="page_content" name="page_content" cols="50" rows="6">
-					<?php if (isset($page_content)) echo htmlentities($page_content, ENT_COMPAT, 'UTF-8'); ?>
-				</textarea>
+				<textarea id="page_content" name="page_content" cols="50" rows="6"><?php if (isset($page_content)) echo htmlentities($page_content, ENT_COMPAT, 'UTF-8'); ?></textarea>
 			</div>
 
 		</fieldset>
