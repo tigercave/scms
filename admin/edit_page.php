@@ -6,7 +6,6 @@
 <?php
 	// options for FILTER_VALIDATE_INT
 	$options = array('options' => array('min_range' => 1));
-	//get all field from request
 	$page_id = filter_input(INPUT_GET, 'pid', FILTER_VALIDATE_INT, $options);
 
 	if (empty($page_id)) { // validate $page_id
