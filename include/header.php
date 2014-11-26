@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta charset='UTF-8'/>
-	<title></title>
+	<title><?php echo !empty($title) ? $title : 'Simple Content Management System'; ?></title>
 	<link rel="stylesheet" href="css/style.css"/>
 </head>
 <body>
@@ -15,8 +15,8 @@
 		<ul>
 	        <li><a href='/scms/index.php'>Home</a></li>
 			<li><a href='#'>About</a></li>
-			<li><a href='#'>Services</a></li>
-			<li><a href='#'>Contact us</a></li>
+			<li><a href='#'>Services</a></li
+>			<li><a href='#'>Contact us</a></li>
 		</ul>
         
         <p class="greeting">Xin chào bạn hiền!</p>

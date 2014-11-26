@@ -16,16 +16,16 @@
 			$r = mysqli_query($dbc, $q);
 			confirm_query($r, $q);
 
-			if (mysqli_num_rows($r) > 0) { // Neu co du lieu post de hien thi
+			if (mysqli_num_rows($r) > 0) { // Neu co du lieu page de hien thi
 
-				while ($post = mysqli_fetch_array($r, MYSQLI_ASSOC)) {
+				while ($page = mysqli_fetch_array($r, MYSQLI_ASSOC)) {
 	?>
 					<div class="post">
-						<h2><a href="singe.php?pid=<?php echo $post['page_id'] ?>"><?php echo $post['page_name']?></a></h2>
-						<p><?php echo $post['content']; ?></p>
+						<h2><a href="single.php?pid=<?php echo $page['page_id'] ?>"><?php echo $page['page_name']?></a></h2>
+						<p><?php echo the_excerpt($page['content']) . " ... <a href='single.php?pid={$page['page_id']}'>Read more</a>" ?></p>
 						<p class="meta">
-							<strong>Posted by: </strong><?php echo $post['user'] ?>
-							<strong>On: </strong><?php echo $post['date'] ;?>
+							<strong>Posted by: </strong><?php echo $page['user'] ?>
+							<strong>On: </strong><?php echo $page['date'] ;?>
 						</p>
 
 					</div>

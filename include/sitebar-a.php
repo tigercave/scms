@@ -25,7 +25,7 @@
                     // Lay page tu co so du lieu
                     echo "<ul class='pages'>";
                     while ($pages = mysqli_fetch_array($r1, MYSQLI_ASSOC)) {
-                        echo "<li><a href='index.php?pid={$pages['page_id']}'";
+                        echo "<li><a href='single.php?pid={$pages['page_id']}'";
                             if (isset($pid) && $pid == $pages['page_id']) echo " class='active'";
                         echo ">".$pages['page_name']."</a></li>";
                         

@@ -10,9 +10,15 @@
 		}
 	}
 
+	// Redirect to other page
 	function redirect_to($page = 'index.php') {
 		$url = BASE_URL . $page;
 		header("Location: {$url}");
 		exit();
+	}
+
+	// remove last word from string
+	function the_excerpt($value) {
+		return substr($value, 0, strrpos($value, ' '));
 	}
  ?>
