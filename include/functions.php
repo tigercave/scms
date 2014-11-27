@@ -18,7 +18,77 @@
 	}
 
 	// remove last word from string
-	function the_excerpt($value) {
-		return substr($value, 0, strrpos($value, ' '));
+	function the_excerpt($value, $length = 400) {
+		if (strlen($value) > $length) {
+			$value = substr($value, 0, $length);
+		}
+		$value = substr($value, 0, strrpos($value, ' '));
+		$sanitized = htmlentities($value, ENT_COMPAT, 'UTF-8');
+		return $sanitized;
 	}
+
+	// create paragrap from db text
+	function the_content($text) {
+		$sanitized = htmlentities($text, ENT_COMPAT, 'UTF-8');
+		$sanitized = str_replace(array("\r\n", "\n"), array("<p>", "</p>"), $sanitized);
+		return $sanitized;
+	}
+
+	// validate id to load entity from database from from get request
+	function validate_id($id_name) {
+		return $id = filter_input(INPUT_GET, $id_name, FILTER_VALIDATE_INT, array('options' => array('range' => 1)));
+	}
+
+	// get page by page_id.
+	function get_page_by_id($page_id) {
+		global $dbc;
+		// query select page with page_id
+		$q = "SELECT ";
+			$q .= "p.page_name, ";
+			$q .= "p.page_id, ";
+			$q .= "p.content, ";
+			$q .= "DATE_FORMAT(p.post_on, '%b %d %y') date, ";
+			$q .= "CONCAT_WS(' ', u.first_name, u.last_name) user, ";
+			$q .= "u.user_id ";
+		$q .= "FROM ";
+			$q .= "pages p INNER JOIN users u USING(user_id) ";
+		$q .= "WHERE ";
+			$q .= "p.page_id = {$page_id} ";
+		$q .= "LIMIT 1";
+		// resultset 
+		$results = mysqli_query($dbc, $q);
+		// check query error
+		confirm_query($results, $q);
+		if (mysqli_num_rows($results) == 1) { // check if has only 1 row
+			return mysqli_fetch_array($results, MYSQLI_ASSOC); // return associate array
+		} else {
+			return NULL; 
+		}
+	}
+
+	// get pages from cat_id
+	function get_pages_by_cat_id($cat_id) {
+		global $dbc;
+		// query select page with cat_id
+		$q = "SELECT ";
+			$q .= "p.page_name, ";
+			$q .= "p.page_id, ";
+			$q .= "p.content, ";
+			$q .= "DATE_FORMAT(p.post_on, '%b %d %y') date, ";
+			$q .= "CONCAT_WS(' ', u.first_name, u.last_name) user, ";
+			$q .= "u.user_id ";
+		$q .= "FROM ";
+			$q .= "pages p INNER JOIN users u USING(user_id) ";
+		$q .= "WHERE ";
+			$q .= "p.cat_id = {$cat_id} ";
+		$q .= "ORDER BY date ASC ";
+		$q .= "LIMIT 0, 10";
+		// resultset 
+		$results = mysqli_query($dbc, $q);
+		// check query error
+		confirm_query($results, $q);
+
+		return $results;
+	}
+
  ?>
