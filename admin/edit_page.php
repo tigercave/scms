@@ -7,7 +7,23 @@
 	//get all field from request
 	$page_id = filter_input(INPUT_GET, 'pid', FILTER_VALIDATE_INT, array('options' => array('min_range' => 1)));
 
-	
+	if (empty($page_id)) {
+		redirect_to('admin/admin.php');
+	}
+
+	$q = "SELECT * FROM pages WHERE page_id = {$page_id}";
+	$r = mysqli_query($dbc,$q);
+	confirm_query($r, $q);
+
+	if (mysqli_num_rows($r) == 1) {
+		$page = mysqli_fetch_array($r, MYSQLI_ASSOC);
+
+		$page_name = $page['page_name'];
+		$page_content = $page['content'];
+
+	} else {
+		redirect_to('admin/admin.php');	
+	}
 
 
 	if (filter_input(INPUT_SERVER, 'REQUEST_METHOD') == 'POST') {
@@ -45,7 +61,7 @@
 
 			$q = "UPDATE pages SET ";
 				$q .= "page_name = '{$page_name}', ";
-				$q .= "cat_id = {$cat_id}, ";
+				$q .= "cat_id = {$categoryId}, ";
 				$q .= "position = {$position}, ";
 				$q .= "content = '{$page_content}' ";
 			$q .= "WHERE page_id = {$page_id} LIMIT 1";
@@ -118,9 +134,7 @@
 				<label for="page_content">Content: <span class="required">*</span>
 					<?php if (isset($errors) && in_array('page_content', $errors)) echo "<p class='warning'>Please fill in content.</p>";?>
 				</label>
-				<textarea id="page_content" name="page_content" cols="50" rows="6">
-					<?php if (isset($page_content)) echo htmlentities($page_content, ENT_COMPAT, 'UTF-8'); ?>
-				</textarea>
+				<textarea id="page_content" name="page_content" cols="50" rows="6"><?php if (isset($page_content)) echo htmlentities($page_content, ENT_COMPAT, 'UTF-8'); ?></textarea>
 			</div>
 
 		</fieldset>
