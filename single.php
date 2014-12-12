@@ -30,8 +30,9 @@
 
 	</div>
 <?php
+	include('include/comment_form.php');
 	}
  ?>
 
 </div><!--end content-->
-<?php include('include/footer.php') ?>
+<?php include('include/footer.php'); ?>
