@@ -5,7 +5,7 @@
 
 <div id="content">
 	<h2>Manage pages</h2>
-	<table>
+	<table style="width: 780px; margin: 10px 0;">
 		<thead>
 			<tr>
 				<th><a href="view_pages.php?ob=page_name">Page</a></th>
@@ -13,6 +13,7 @@
 				<th><a href="view_pages.php?ob=position">Position</a></th>
 				<th><a href="view_pages.php?ob=post_on">Post on</a></th>
 				<th><a href="view_pages.php?ob=posted_by">Posted by</a></th>
+				<th>Content</th>
 				<th>Edit</th>
 				<th>Delete</th>
 			</tr>
@@ -23,10 +24,11 @@
 				$ob = filter_input(INPUT_GET, 'ob');
 
 				$q = "SELECT ";
-					$q .= "p.page_id,";
-					$q .= "p.page_name,";
-					$q .= "c.cat_name,";
+					$q .= "p.page_id, ";
+					$q .= "p.page_name, ";
+					$q .= "c.cat_name, ";
 					$q .= "p.position, ";
+					$q .= "p.content, ";
 					$q .= "DATE_FORMAT(p.post_on, '%b %d %Y') post_on,";
 					$q .= "CONCAT_WS(' ', u.first_name, u.last_name) as post_by ";
 				$q .= "FROM ";
@@ -72,6 +74,7 @@
 					echo "<td>".$pages['position']."</td>";
 					echo "<td>".$pages['post_on']."</td>";
 					echo "<td>".$pages['post_by']."</td>";
+					echo "<td>".the_excerpt($pages['content'],200)."</td>";
 					echo "<td><a href='edit_page.php?pid=".$pages['page_id']."'>Edit</a></td>";
 					echo "<td><a href='delete_page.php?pid={$pages['page_id']}'>Delete</a></td>";
 					echo "</tr>";

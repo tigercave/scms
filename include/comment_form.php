@@ -4,6 +4,7 @@
 		$email = mysqli_real_escape_string($dbc,filter_input(INPUT_POST, 'email', FILTER_SANITIZE_SPECIAL_CHARS));
 		$comment = trim(mysqli_real_escape_string($dbc,filter_input(INPUT_POST, 'comment', FILTER_SANITIZE_SPECIAL_CHARS)));
 		$captcha = filter_input(INPUT_POST, 'captcha', FILTER_SANITIZE_SPECIAL_CHARS);
+		$question = isset($_SESSION['q']) ? $_SESSION['q'] : NULL;
 
 		if (empty($name)) {
 			$name_err = "<span class='warning'>Name is requried.</span>";
@@ -25,6 +26,9 @@
 
 		if (empty($captcha)) {
 			$captcha_err = "<span class='warning'>Captcha is requried.</span>";
+			$has_errors = true;
+		} elseif ($captcha != $question['answer']) {
+			$captcha_err = "<span class='warning'>The answer is not valid.</span>";
 			$has_errors = true;
 		}
 
@@ -78,7 +82,7 @@
 			</div>
 		</div>
 		<div>
-			<label for="captcha">Answer question: four plus one  <?php echo isset($captcha_err) ? $captcha_err :''; ?> <span class="required">*</span></label>
+			<label for="captcha">Answer question: <?php echo captcha(); ?>  <?php echo isset($captcha_err) ? $captcha_err :''; ?> <span class="required">*</span></label>
 			<input type="text" id="captcha" name="captcha" value="<?php echo isset($captcha) ? $captcha :''; ?>" size="20" maxlength="80" tabindex="4"/>
 		</div>
 	</fieldset>
