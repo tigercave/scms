@@ -15,7 +15,7 @@
 			<h2><a href="single.php?pid=<?php echo $page['page_id'] ?>"><?php echo $page['page_name']?></a></h2>
 			<p><?php echo the_excerpt($page['content']) . " ... <a href='single.php?pid={$page['page_id']}'>Read more</a>" ?></p>
 			<p class="meta">
-				<strong>Posted by: </strong><?php echo $page['user'] ?>
+				<strong>Posted by: </strong><a href="author.php?aid=<?php echo $page['user_id'];?>"><?php echo $page['user'] ?></a>
 				<strong>On: </strong><?php echo $page['date'] ;?>
 			</p>
 		</div>

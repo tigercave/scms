@@ -1,9 +1,35 @@
 	<div id="footer">
         <ul class="footer-links">
-            <li><a href="#">Home</a></li>
-           <li><a href="#">About</a></li>
-           <li><a href="#">Clients</a></li>
-           <li><a href="#">Contact Us</a></li>
+            <?php 
+            	if (isset($_SESSION['user_level'])) {
+            		switch ($SESSION['user_level']) {
+            			case 0: // Registered users access.
+            				echo "
+            					<li><a href='".BASE_URL."edit_profile.php'>User Profile</li>
+            					<li><a href='".BASE_URL."change_password.php'>Change password</li>
+            					<li><a href='#'>Persional Message</li>
+            					<li><a href='".BASE_URL."logout.php'>Logout</li>
+            				";
+            				break;
+            			case 1: // Admin Access.
+            				echo "
+            					<li><a href='".BASE_URL."edit_profile.php'>User Profile</li>
+            					<li><a href='".BASE_URL."change_password.php'>Change password</li>
+            					<li><a href='#'>Persional Message</li>
+            					<li><a href='".BASE_URL."admin/admin.php'>Admin</li>
+            					<li><a href='".BASE_URL."logout.php'>Logout</li>
+            				";
+    						break;
+            			
+            			default:
+            				echo "
+			                    <li><a href='".BASE_URL."register.php'>Register</a></li>
+			                    <li><a href='".BASE_URL."login.php'>Login</a></li>
+			                ";
+            				break;
+            		}
+            	}
+             ?>
         </ul>
     </div><!--end footer-->
 </div> <!-- end content-container-->

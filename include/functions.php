@@ -91,6 +91,31 @@
 		return $results;
 	}
 
+	// get pages from user_id
+	function get_pages_by_user_id($user_id, $start = 0, $range = 10) {
+		global $dbc;
+		// query select page with cat_id
+		$q = "SELECT ";
+			$q .= "p.page_name, ";
+			$q .= "p.page_id, ";
+			$q .= "p.content, ";
+			$q .= "DATE_FORMAT(p.post_on, '%b %d %y') date, ";
+			$q .= "CONCAT_WS(' ', u.first_name, u.last_name) user, ";
+			$q .= "u.user_id ";
+		$q .= "FROM ";
+			$q .= "pages p INNER JOIN users u USING(user_id) ";
+		$q .= "WHERE ";
+			$q .= "p.user_id = {$user_id} ";
+		$q .= "ORDER BY date ASC ";
+		$q .= "LIMIT {$start}, {$range}";
+		// resultset 
+		$results = mysqli_query($dbc, $q);
+		// check query error
+		confirm_query($results, $q);
+
+		return $results;
+	}
+
 	function captcha() {
 		$qna = array(
 			1 => array('question' => 'Mot cong mot', 'answer' => 2),

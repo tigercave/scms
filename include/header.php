@@ -4,7 +4,7 @@
 <head>
 	<meta charset='UTF-8'/>
 	<title><?php echo !empty($title) ? $title : 'Simple Content Management System'; ?></title>
-	<link rel="stylesheet" href="css/style.css"/>
+	<link rel="stylesheet" href="/scms/css/style.css"/>
 </head>
 <body>
 	<div id="container">

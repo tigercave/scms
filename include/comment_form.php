@@ -5,6 +5,7 @@
 		$comment = trim(mysqli_real_escape_string($dbc,filter_input(INPUT_POST, 'comment', FILTER_SANITIZE_SPECIAL_CHARS)));
 		$captcha = filter_input(INPUT_POST, 'captcha', FILTER_SANITIZE_SPECIAL_CHARS);
 		$question = isset($_SESSION['q']) ? $_SESSION['q'] : NULL;
+		$website = filter_input(INPUT_POST, 'website');
 
 		if (empty($name)) {
 			$name_err = "<span class='warning'>Name is requried.</span>";
@@ -30,6 +31,10 @@
 		} elseif ($captcha != $question['answer']) {
 			$captcha_err = "<span class='warning'>The answer is not valid.</span>";
 			$has_errors = true;
+		}
+
+		if (!empty($website)) {
+			redirect_to('thankyou.html');
 		}
 
 		if (!isset($has_errors)) {
@@ -84,6 +89,10 @@
 		<div>
 			<label for="captcha">Answer question: <?php echo captcha(); ?>  <?php echo isset($captcha_err) ? $captcha_err :''; ?> <span class="required">*</span></label>
 			<input type="text" id="captcha" name="captcha" value="<?php echo isset($captcha) ? $captcha :''; ?>" size="20" maxlength="80" tabindex="4"/>
+		</div>
+		<div class="website">
+			<label for="website">If you see this fied, don't fill it.</label>
+			<input type="text" name="website" id="website" size="20" maxlength="80" />
 		</div>
 	</fieldset>
 	<div>
