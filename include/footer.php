@@ -2,7 +2,7 @@
         <ul class="footer-links">
             <?php 
             	if (isset($_SESSION['user_level'])) {
-            		switch ($SESSION['user_level']) {
+            		switch ($_SESSION['user_level']) {
             			case 0: // Registered users access.
             				echo "
             					<li><a href='".BASE_URL."edit_profile.php'>User Profile</li>
@@ -20,14 +20,12 @@
             					<li><a href='".BASE_URL."logout.php'>Logout</li>
             				";
     						break;
-            			
-            			default:
-            				echo "
-			                    <li><a href='".BASE_URL."register.php'>Register</a></li>
-			                    <li><a href='".BASE_URL."login.php'>Login</a></li>
-			                ";
-            				break;
             		}
+            	} else {
+            		echo "
+	                    <li><a href='".BASE_URL."register.php'>Register</a></li>
+	                    <li><a href='".BASE_URL."login.php'>Login</a></li>
+		                ";
             	}
              ?>
         </ul>

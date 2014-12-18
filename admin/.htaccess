@@ -1,0 +1,3 @@
+# Disable view folder content
+Options All -Indexes
+IndexIgnore *

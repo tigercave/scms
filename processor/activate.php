@@ -23,7 +23,7 @@
 		confirm_query($r, $q);
 
 		if (mysqli_affected_rows($dbc) == 1) {
-			$message = "<p class='success'>Your account has been activated successfully. You may <a href='".BASE_URL."'>Login</a> now.";
+			$message = "<p class='success'>Your account has been activated successfully. You may <a href='".BASE_URL."login.php'>Login</a> now.";
 		} else {
 			$message = "<p class='warning'>Your accoutn cound not be activate due to a system error.</p>";
 		}

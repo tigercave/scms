@@ -4,7 +4,10 @@
 <head>
 	<meta charset='UTF-8'/>
 	<title><?php echo !empty($title) ? $title : 'Simple Content Management System'; ?></title>
-	<link rel="stylesheet" href="/scms/css/style.css"/>
+	<link rel="stylesheet" href="http://localhost/scms/css/style.css"/>
+	<script type="text/javascript" src="http://localhost/js/jquery.min.js"></script>
+	<script type="text/javascript" src="http://localhost/scms/js/tinymce/tiny_mce.js" ></script>
+    
 </head>
 <body>
 	<div id="container">
@@ -20,6 +23,6 @@
 >			<li><a href='#'>Contact us</a></li>
 		</ul>
         
-        <p class="greeting">Xin chào bạn hiền!</p>
+        <p class="greeting">Xin chào <?php echo isset($_SESSION['first_name']) ? $_SESSION['first_name'] : 'bạn hiền' ?>!</p>
 	</div><!-- end navigation-->
 	

@@ -83,7 +83,7 @@
 		<div>
 			<label for="comment">Your comment: <?php echo isset($comment_err) ? $comment_err :''; ?><span class="required">*</span></label>
 			<div id="comment">
-				<textarea id="comment" name="comment" rows="10" cols="50" tabindex="3"><?php echo isset($comment) ? $comment :''; ?></textarea>
+				<textarea id="comment" name="comment" rows="10" cols="50" tabindex="3"><?php echo isset($comment) ? htmlentities($comment, ENT_COMPAT, 'UTF-8') :''; ?></textarea>
 			</div>
 		</div>
 		<div>

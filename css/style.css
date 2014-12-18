@@ -58,7 +58,7 @@ fieldset {border:1px solid #FFCBA0; margin: 10px 0px;padding: 10px; border-radiu
 fieldset div {margin: 10px 0px;}
 label {display: block;width:30em; font-weight: bold;margin: 0px 15px 5px 0px;}
 textarea {border:1px solid #ccc; height: 400px; padding: 5px}
-input[type="text"], input[type="email"] {padding: 3px; width: 200px;}
+input[type="text"], input[type="email"], input[type=password], input[type=url] {padding: 3px; width: 200px;}
 
 /****** COMMENT SECTION *********/
 #disscuss { margin: 20px 15px; list-style: none; }

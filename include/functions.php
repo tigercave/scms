@@ -34,6 +34,11 @@
 		return $sanitized;
 	}
 
+	// Check if current user is admin
+	function is_admin() {
+		return isset($_SESSION['user_level']) && $_SESSION['user_level'] == 1;
+	}
+
 	// validate id to load entity from database from from get request
 	function validate_id($id_name) {
 		return $id = filter_input(INPUT_GET, $id_name, FILTER_VALIDATE_INT, array('options' => array('range' => 1)));

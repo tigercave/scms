@@ -1,0 +1,9 @@
+# Disable view folder content
+Options All -Indexes
+# Khong cho phep hien thi thu muc.
+IndexIgnore *
+# khong cho phep vao bat cu file nao
+<FileMatch '^.*&'>
+	Order deny, allow
+	deny from all
+</FileMatch>
